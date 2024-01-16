@@ -23,26 +23,6 @@ int numPlayerCards = 0;
 int playerSum = 0;
 char choice;
 
-void initializeDeck() {
-    for (int i = 0; i < TOTAL_CARDS; i++) {
-        deck[i].value = values[i % CARD_VALUES];
-        deck[i].suit = suits[i / CARD_VALUES];
-        deck[i].numericValue = (i % CARD_VALUES) + 2;
-        if (deck[i].numericValue > 10) deck[i].numericValue = 10;
-        if (i % CARD_VALUES == CARD_VALUES - 1) deck[i].numericValue = 11;
-    }
-}
-
-void shuffleDeck() {
-    srand(time(NULL));
-    for (int i = 0; i < TOTAL_CARDS; i++) {
-        int j = rand() % TOTAL_CARDS;
-        struct card temp = deck[i];
-        deck[i] = deck[j];
-        deck[j] = temp;
-    }
-}
-
 int sumHand(struct card hand[], int numCards) {
     int sum = 0;
     for (int i = 0; i < numCards; i++) {
@@ -52,8 +32,22 @@ int sumHand(struct card hand[], int numCards) {
 }
 
 int main() {
-    initializeDeck();
-    shuffleDeck();
+    //Initialize deck
+    for (int i = 0; i < TOTAL_CARDS; i++) {
+        deck[i].value = values[i % CARD_VALUES];
+        deck[i].suit = suits[i / CARD_VALUES];
+        deck[i].numericValue = (i % CARD_VALUES) + 2;
+        if (deck[i].numericValue > 10) deck[i].numericValue = 10;
+        if (i % CARD_VALUES == CARD_VALUES - 1) deck[i].numericValue = 11;
+    }
+    //Shuffle Deck
+    srand(time(NULL));
+    for (int i = 0; i < TOTAL_CARDS; i++) {
+        int j = rand() % TOTAL_CARDS;
+        struct card temp = deck[i];
+        deck[i] = deck[j];
+        deck[j] = temp;
+    }
 
     printf("Welcome to Blackjack!\n");
 
