@@ -27,7 +27,7 @@ void initializeDeck() {
     for (int i = 0; i < TOTAL_CARDS; i++) {
         deck[i].value = values[i % CARD_VALUES];
         deck[i].suit = suits[i / CARD_VALUES];
-        deck[i].numericValue = (i % CARD_VALUES) + 1;
+        deck[i].numericValue = (i % CARD_VALUES) + 2;
         if (deck[i].numericValue > 10) deck[i].numericValue = 10;
         if (i % CARD_VALUES == CARD_VALUES - 1) deck[i].numericValue = 11;
     }
@@ -41,10 +41,6 @@ void shuffleDeck() {
         deck[i] = deck[j];
         deck[j] = temp;
     }
-}
-
-void showCard(struct card c) {
-    printf("  %s of %s\n", c.value, c.suit);
 }
 
 int sumHand(struct card hand[], int numCards) {
@@ -66,8 +62,8 @@ int main() {
     playerSum = sumHand(playerHand, numPlayerCards);
 
     printf("Your cards:\n");
-    showCard(playerHand[0]);
-    showCard(playerHand[1]);
+    printf("  %s of %s\n", playerHand[0].value, playerHand[0].suit);
+    printf("  %s of %s\n", playerHand[1].value, playerHand[1].suit);
     printf("Total sum: %d\n", playerSum);
 
     while (playerSum < 21) {
@@ -79,7 +75,7 @@ int main() {
             playerSum = sumHand(playerHand, ++numPlayerCards);
 
             printf("New card:\n");
-            showCard(playerHand[numPlayerCards - 1]);
+            printf("  %s of %s\n", playerHand[numPlayerCards - 1].value, playerHand[numPlayerCards - 1].suit);
             printf("Total sum: %d\n", playerSum);
         } else {
             break;
