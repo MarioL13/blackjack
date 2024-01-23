@@ -23,14 +23,6 @@ int numPlayerCards = 0;
 int playerSum = 0;
 char choice;
 
-int sumHand(struct card hand[], int numCards) {
-    int sum = 0;
-    for (int i = 0; i < numCards; i++) {
-        sum += hand[i].numericValue;
-    }
-    return sum;
-}
-
 int main() {
     //Initialize deck
     for (int i = 0; i < TOTAL_CARDS; i++) {
@@ -53,7 +45,9 @@ int main() {
 
     playerHand[numPlayerCards++] = deck[0];
     playerHand[numPlayerCards++] = deck[1];
-    playerSum = sumHand(playerHand, numPlayerCards);
+
+    playerSum += playerHand[0].numericValue;
+    playerSum += playerHand[1].numericValue;
 
     printf("Your cards:\n");
     printf("  %s of %s\n", playerHand[0].value, playerHand[0].suit);
@@ -66,7 +60,9 @@ int main() {
 
         if (choice == 'y' || choice == 'Y') {
             playerHand[numPlayerCards] = deck[numPlayerCards + 1];
-            playerSum = sumHand(playerHand, ++numPlayerCards);
+
+            playerSum += playerHand[numPlayerCards].numericValue;
+            ++numPlayerCards;
 
             printf("New card:\n");
             printf("  %s of %s\n", playerHand[numPlayerCards - 1].value, playerHand[numPlayerCards - 1].suit);
